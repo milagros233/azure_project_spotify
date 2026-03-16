@@ -1,0 +1,9 @@
+{
+	"name": "df-project-end-to-end-23",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7a6c3296-025b-4b99-9ad5-111fd1227026",
+		"tenantId": "9e2a2c19-77d1-497f-9a91-7b4c29b7d3c2"
+	}
+}
