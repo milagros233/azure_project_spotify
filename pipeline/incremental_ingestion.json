@@ -86,7 +86,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT COUNT(*)  AS COUNT FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} WHERE @{pipeline().parameters.cdc_col} > '@{activity('Lookup1').output.value[0].cdc}'",
+							"value": "SELECT COUNT(*)  AS COUNT \nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.cdc_col} > '@{if(empty(pipeline().parameters.date_from),activity('Lookup1').output.value[0].cdc, pipeline().parameters.date_from)}'\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -134,7 +134,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "SELECT * FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} WHERE @{pipeline().parameters.cdc_col} > '@{activity('Lookup1').output.value[0].cdc}'",
+										"value": "SELECT * FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} WHERE @{pipeline().parameters.cdc_col} > '@{if(empty(pipeline().parameters.date_from),activity('Lookup1').output.value[0].cdc, pipeline().parameters.date_from)}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -255,6 +255,9 @@
 				"type": "string"
 			},
 			"cdc_col": {
+				"type": "string"
+			},
+			"date_from": {
 				"type": "string"
 			}
 		},
